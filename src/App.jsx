@@ -1,47 +1,51 @@
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import "./App.css";
 
 const medicines = [
   {
     id: 1,
     name: "Paracetamol 500 mg",
-    category: "Pain & Fever",
+    category: "pain",
     price: "₹20",
-    description:
-      "A sample catalogue entry for a medicine commonly used for pain and fever.",
+    description: "A sample catalogue entry for a medicine commonly used for pain and fever.",
     use: "Pain and fever information",
     note: "Use only as directed by a qualified healthcare professional. Check the label and avoid duplicate paracetamol-containing products.",
+    icon: "✚",
+    tone: "mint",
   },
   {
     id: 2,
     name: "Vitamin C Tablets",
-    category: "Vitamins & Supplements",
+    category: "vitamins",
     price: "₹85",
-    description:
-      "A sample catalogue entry for a vitamin supplement.",
+    description: "A sample catalogue entry for a vitamin supplement.",
     use: "Vitamin supplement information",
     note: "Supplements are not a substitute for a balanced diet or professional medical advice.",
+    icon: "✿",
+    tone: "peach",
   },
   {
     id: 3,
     name: "ORS Sachets",
-    category: "Hydration & Wellness",
+    category: "hydration",
     price: "₹22",
-    description:
-      "A sample catalogue entry for oral rehydration salts.",
+    description: "A sample catalogue entry for oral rehydration salts.",
     use: "Rehydration information",
     note: "Prepare exactly as instructed on the product pack. Seek medical care for severe dehydration or concerning symptoms.",
+    icon: "＋",
+    tone: "blue",
   },
   {
     id: 4,
     name: "Cetirizine 10 mg",
-    category: "Allergy Care",
+    category: "allergy",
     price: "₹18",
-    description:
-      "A sample catalogue entry for an antihistamine medicine.",
+    description: "A sample catalogue entry for an antihistamine medicine.",
     use: "Allergy symptom information",
     note: "May cause drowsiness. Check suitability, precautions and dosage with a qualified healthcare professional.",
+    icon: "❋",
+    tone: "lilac",
   },
 ];
 
@@ -52,7 +56,6 @@ const pharmacies = [
     city: "Lucknow",
     pincode: "226001",
     address: "Sample address — not a real store",
-    status: "Demo listing",
   },
   {
     id: 2,
@@ -60,7 +63,6 @@ const pharmacies = [
     city: "Farrukhabad",
     pincode: "209625",
     address: "Sample address — not a real store",
-    status: "Demo listing",
   },
   {
     id: 3,
@@ -68,312 +70,402 @@ const pharmacies = [
     city: "Kanpur",
     pincode: "208001",
     address: "Sample address — not a real store",
-    status: "Demo listing",
   },
 ];
 
+const copy = {
+  en: {
+    navMedicines: "Medicines",
+    navPharmacy: "Find Pharmacy",
+    navHow: "How It Works",
+    explore: "Explore Demo",
+    eyebrow: "YOUR LOCAL MEDICINE DISCOVERY PLATFORM",
+    heroLine1: "Find your medicine.",
+    heroLine2: "With more confidence.",
+    heroText: "Explore medicine information and discover how a local pharmacy finder could work. This is an interactive sample demo.",
+    searchPlaceholder: "Search medicine name...",
+    search: "Search",
+    trust: "Interactive demo · No account required",
+    benefit1: "Easy discovery",
+    benefit1Text: "Search by medicine name",
+    benefit2: "Pharmacy focused",
+    benefit2Text: "Explore sample store listings",
+    benefit3: "Clear information",
+    benefit3Text: "Demo data is labelled",
+    demo: "EXPLORE THE DEMO",
+    catalogTitle: "Medicine discovery",
+    catalogText: "Search and open any sample medicine for more information.",
+    results: "results",
+    demoTag: "DEMO",
+    illustrative: "Illustrative price",
+    details: "View details ↗",
+    noMedicine: "No matching demo listings. Try another medicine name.",
+    catalogueDisclaimer: "Demo catalogue only. Prices, product descriptions and listings are illustrative. This is not a prescription or a medical diagnosis.",
+    local: "LOCAL DISCOVERY · DEMO",
+    pharmacyTitle: "Find a pharmacy",
+    pharmacyText: "Enter a city or PIN code to explore example pharmacy cards. These are not verified shops.",
+    pharmacyPlaceholder: "Try Lucknow or 226001",
+    clear: "Clear",
+    listings: "Example pharmacy listings",
+    pharmacyDetails: "View pharmacy details ↗",
+    noPharmacy: "No sample listing matches that search. Try Lucknow, Farrukhabad, Kanpur or a sample PIN code.",
+    pharmacyDisclaimer: "Pharmacy names, addresses and PIN-code associations are sample interface data only. No live stock, location or licence has been verified. Do not rely on this demo to locate or purchase medicine.",
+    howEyebrow: "SIMPLE BY DESIGN",
+    howTitle: "Your search, made simpler.",
+    step1: "Search",
+    step1Text: "Enter the name of a medicine you are looking for.",
+    step2: "Explore",
+    step2Text: "Open sample medicine and pharmacy details.",
+    step3: "Confirm",
+    step3Text: "In a future live service, confirm stock and prescription requirements directly with a licensed pharmacy.",
+    footer: "Interactive demo · Sample data only",
+    medDetail: "MEDICINE DETAILS · DEMO",
+    illustrativeOnly: "Illustrative price only",
+    infoCategory: "Information category",
+    safety: "Important safety note",
+    close: "Close details",
+    pharmacyDetail: "PHARMACY DETAILS · DEMO",
+    sampleCity: "Sample city",
+    samplePin: "Sample PIN code",
+    address: "Address",
+    fakePharmacy: "Demo only — not a real pharmacy",
+    fakePharmacyText: "No real store, licence, stock, price, contact number or order service is connected to this listing.",
+    categories: {
+      pain: "Pain & Fever",
+      vitamins: "Vitamins & Supplements",
+      hydration: "Hydration & Wellness",
+      allergy: "Allergy Care",
+    },
+    language: "हिन्दी",
+    languageLabel: "Language",
+  },
+  hi: {
+    navMedicines: "दवाइयाँ",
+    navPharmacy: "फार्मेसी खोजें",
+    navHow: "कैसे काम करता है",
+    explore: "डेमो देखें",
+    eyebrow: "आपका मेडिसिन डिस्कवरी प्लेटफॉर्म",
+    heroLine1: "अपनी दवा खोजें।",
+    heroLine2: "और अधिक भरोसे के साथ।",
+    heroText: "दवाइयों की जानकारी देखें और समझें कि स्थानीय फार्मेसी खोजने की सुविधा कैसे काम कर सकती है। यह एक इंटरैक्टिव डेमो है।",
+    searchPlaceholder: "दवा का नाम खोजें...",
+    search: "खोजें",
+    trust: "इंटरैक्टिव डेमो · अकाउंट की जरूरत नहीं",
+    benefit1: "आसान खोज",
+    benefit1Text: "दवा के नाम से खोजें",
+    benefit2: "फार्मेसी की जानकारी",
+    benefit2Text: "उदाहरण वाली दुकानें देखें",
+    benefit3: "स्पष्ट जानकारी",
+    benefit3Text: "डेमो डेटा की पहचान स्पष्ट",
+    demo: "डेमो देखें",
+    catalogTitle: "दवाइयों की खोज",
+    catalogText: "उदाहरण वाली दवाइयाँ खोजें और अधिक जानकारी खोलें।",
+    results: "परिणाम",
+    demoTag: "डेमो",
+    illustrative: "केवल उदाहरण का मूल्य",
+    details: "जानकारी देखें ↗",
+    noMedicine: "इस नाम की कोई डेमो दवा नहीं मिली। दूसरा नाम खोजें।",
+    catalogueDisclaimer: "यह केवल डेमो कैटलॉग है। कीमतें, विवरण और लिस्टिंग उदाहरण के लिए हैं। यह प्रिस्क्रिप्शन या मेडिकल डायग्नोसिस नहीं है।",
+    local: "स्थानीय खोज · डेमो",
+    pharmacyTitle: "फार्मेसी खोजें",
+    pharmacyText: "उदाहरण वाली फार्मेसी देखने के लिए शहर या PIN कोड डालें। ये सत्यापित दुकानें नहीं हैं।",
+    pharmacyPlaceholder: "Lucknow या 226001 लिखें",
+    clear: "हटाएँ",
+    listings: "उदाहरण वाली फार्मेसी",
+    pharmacyDetails: "फार्मेसी विवरण देखें ↗",
+    noPharmacy: "कोई उदाहरण नहीं मिला। Lucknow, Farrukhabad, Kanpur या PIN कोड आज़माएँ।",
+    pharmacyDisclaimer: "फार्मेसी के नाम, पते और PIN कोड केवल डेमो डेटा हैं। लाइव स्टॉक, स्थान या लाइसेंस सत्यापित नहीं हैं। दवा खरीदने या दुकान खोजने के लिए इस डेमो पर निर्भर न रहें।",
+    howEyebrow: "सरल और आसान",
+    howTitle: "आपकी खोज, अब और आसान।",
+    step1: "खोजें",
+    step1Text: "जिस दवा की जानकारी चाहिए उसका नाम लिखें।",
+    step2: "जानकारी देखें",
+    step2Text: "उदाहरण वाली दवा और फार्मेसी का विवरण खोलें।",
+    step3: "पुष्टि करें",
+    step3Text: "भविष्य की लाइव सेवा में स्टॉक और प्रिस्क्रिप्शन की जरूरत लाइसेंस प्राप्त फार्मेसी से पुष्टि करें।",
+    footer: "इंटरैक्टिव डेमो · केवल उदाहरण डेटा",
+    medDetail: "दवा का विवरण · डेमो",
+    illustrativeOnly: "केवल उदाहरण की कीमत",
+    infoCategory: "जानकारी की श्रेणी",
+    safety: "जरूरी सुरक्षा सूचना",
+    close: "बंद करें",
+    pharmacyDetail: "फार्मेसी विवरण · डेमो",
+    sampleCity: "उदाहरण वाला शहर",
+    samplePin: "उदाहरण PIN कोड",
+    address: "पता",
+    fakePharmacy: "केवल डेमो — असली फार्मेसी नहीं",
+    fakePharmacyText: "इस लिस्टिंग में कोई वास्तविक दुकान, लाइसेंस, स्टॉक, कीमत, संपर्क नंबर या ऑर्डर सेवा जुड़ी नहीं है।",
+    categories: {
+      pain: "दर्द और बुखार",
+      vitamins: "विटामिन और सप्लीमेंट",
+      hydration: "हाइड्रेशन और वेलनेस",
+      allergy: "एलर्जी की देखभाल",
+    },
+    language: "English",
+    languageLabel: "भाषा",
+  },
+};
+
 function App() {
+  const [language, setLanguage] = useState("en");
   const [search, setSearch] = useState("");
-  const [selectedMedicine, setSelectedMedicine] = useState(null);
   const [locationSearch, setLocationSearch] = useState("");
+  const [selectedMedicine, setSelectedMedicine] = useState(null);
   const [selectedPharmacy, setSelectedPharmacy] = useState(null);
 
-  const filteredMedicines = medicines.filter((medicine) =>
-    `${medicine.name} ${medicine.category}`
-      .toLowerCase()
-      .includes(search.toLowerCase().trim())
-  );
+  const t = copy[language];
 
-  const filteredPharmacies = pharmacies.filter((pharmacy) =>
-    `${pharmacy.city} ${pharmacy.pincode} ${pharmacy.name}`
-      .toLowerCase()
-      .includes(locationSearch.toLowerCase().trim())
-  );
+  const filteredMedicines = useMemo(() => {
+    const term = search.trim().toLowerCase();
+    return medicines.filter((medicine) => {
+      const translatedCategory = t.categories[medicine.category].toLowerCase();
+      return `${medicine.name} ${medicine.category} ${translatedCategory}`
+        .toLowerCase()
+        .includes(term);
+    });
+  }, [search, t]);
+
+  const filteredPharmacies = useMemo(() => {
+    const term = locationSearch.trim().toLowerCase();
+    return pharmacies.filter((pharmacy) =>
+      `${pharmacy.city} ${pharmacy.pincode} ${pharmacy.name}`
+        .toLowerCase()
+        .includes(term)
+    );
+  }, [locationSearch]);
+
+  function scrollTo(id) {
+    document.getElementById(id)?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }
 
   return (
     <div className="app">
       <header className="navbar">
-        <a className="brand" href="#">
+        <a className="brand" href="#top" aria-label="MedKhoj home">
           <span className="brand-icon">M+</span>
-          <span>
+          <span className="brand-word">
             Med<span className="brand-accent">Khoj</span>
-            <small>YOUR MEDICINE FINDER</small>
+            <small>MEDICINE DISCOVERY</small>
           </span>
         </a>
 
-        <nav>
-          <a href="#search">Medicines</a>
-          <a href="#pharmacy-finder">Find Pharmacy</a>
-          <a href="#how">How It Works</a>
+        <nav aria-label="Main navigation">
+          <a href="#search">{t.navMedicines}</a>
+          <a href="#pharmacy-finder">{t.navPharmacy}</a>
+          <a href="#how">{t.navHow}</a>
         </nav>
 
-        <button
-          className="outline-button"
-          onClick={() =>
-            document.getElementById("search")?.scrollIntoView({
-              behavior: "smooth",
-            })
-          }
-        >
-          Explore Demo
-        </button>
+        <div className="nav-actions">
+          <button
+            className="language-button"
+            onClick={() => setLanguage(language === "en" ? "hi" : "en")}
+            aria-label={`${t.languageLabel}: ${t.language}`}
+            title={t.languageLabel}
+          >
+            <span aria-hidden="true">文</span> {t.language}
+          </button>
+          <button className="outline-button" onClick={() => scrollTo("search")}>
+            {t.explore}
+          </button>
+        </div>
       </header>
 
-      <main>
+      <main id="top">
         <section className="hero">
           <div className="hero-copy">
             <span className="eyebrow">
               <span className="live-dot" />
-              YOUR LOCAL MEDICINE DISCOVERY PLATFORM
+              {t.eyebrow}
             </span>
 
             <h1>
-              Find your medicine.
+              {t.heroLine1}
               <br />
-              <span>With more confidence.</span>
+              <span>{t.heroLine2}</span>
             </h1>
 
-            <p>
-              Explore medicine information and discover how a local pharmacy
-              finder could work. This is an interactive sample demo.
-            </p>
+            <p>{t.heroText}</p>
 
-            <div className="hero-search" id="search">
-              <span className="search-icon">⌕</span>
+            <form
+              className="hero-search"
+              id="search"
+              onSubmit={(event) => {
+                event.preventDefault();
+                scrollTo("results");
+              }}
+            >
+              <span className="search-icon" aria-hidden="true">⌕</span>
               <input
                 value={search}
                 onChange={(event) => setSearch(event.target.value)}
-                placeholder="Search medicine name..."
-                aria-label="Search medicines"
+                placeholder={t.searchPlaceholder}
+                aria-label={t.searchPlaceholder}
               />
-              <button
-                onClick={() =>
-                  document.getElementById("results")?.scrollIntoView({
-                    behavior: "smooth",
-                  })
-                }
-              >
-                Search
-              </button>
-            </div>
+              <button type="submit">{t.search} <span aria-hidden="true">→</span></button>
+            </form>
 
             <div className="trust-line">
-              <span>✓</span>
-              Interactive demo · No account required
+              <span aria-hidden="true">✓</span>
+              {t.trust}
             </div>
           </div>
 
-          <div className="hero-art" aria-label="Medicine search illustration">
+          <div className="hero-art" aria-label="MedKhoj medicine illustration">
             <div className="art-orbit orbit-one" />
             <div className="art-orbit orbit-two" />
             <div className="medicine-box">
-              <div className="box-top">MEDICAL CARE</div>
+              <div className="box-top">HEALTH & WELLNESS</div>
               <div className="box-cross">+</div>
-              <div className="box-name">
-                MED<span>KHOJ</span>
-              </div>
+              <div className="box-name">MED<span>KHOJ</span></div>
               <div className="box-caption">YOUR HEALTH JOURNEY</div>
             </div>
             <div className="floating-pill pill-one" />
             <div className="floating-pill pill-two" />
             <div className="floating-card">
-              <span>⌕</span>
+              <span aria-hidden="true">⌕</span>
               <div>
-                <b>Medicine Search</b>
-                <small>Explore sample listings</small>
+                <b>{t.navMedicines}</b>
+                <small>{t.catalogText}</small>
               </div>
             </div>
           </div>
         </section>
 
-        <section className="benefits">
+        <section className="benefits" aria-label="Features">
           <div>
-            <span className="benefit-icon">⌕</span>
-            <span>
-              <b>Easy discovery</b>
-              <small>Search by medicine name</small>
-            </span>
+            <span className="benefit-icon" aria-hidden="true">⌕</span>
+            <span><b>{t.benefit1}</b><small>{t.benefit1Text}</small></span>
           </div>
           <div>
-            <span className="benefit-icon">＋</span>
-            <span>
-              <b>Pharmacy focused</b>
-              <small>Explore sample store listings</small>
-            </span>
+            <span className="benefit-icon" aria-hidden="true">＋</span>
+            <span><b>{t.benefit2}</b><small>{t.benefit2Text}</small></span>
           </div>
           <div>
-            <span className="benefit-icon">↗</span>
-            <span>
-              <b>Clear information</b>
-              <small>Demo data is labelled</small>
-            </span>
+            <span className="benefit-icon" aria-hidden="true">✓</span>
+            <span><b>{t.benefit3}</b><small>{t.benefit3Text}</small></span>
           </div>
         </section>
 
         <section className="catalog" id="results">
           <div className="section-heading">
             <div>
-              <span className="eyebrow">EXPLORE THE DEMO</span>
-              <h2>Medicine discovery</h2>
-              <p>Search and open any sample medicine for more information.</p>
+              <span className="eyebrow">{t.demo}</span>
+              <h2>{t.catalogTitle}</h2>
+              <p>{t.catalogText}</p>
             </div>
             <span className="result-count">
-              {filteredMedicines.length} results
+              {filteredMedicines.length} {t.results}
             </span>
           </div>
 
           <div className="medicine-grid">
             {filteredMedicines.map((medicine) => (
               <article className="medicine-card" key={medicine.id}>
-                <div className="medicine-visual">
-                  <span className="product-symbol">✚</span>
-                  <span className="demo-tag">DEMO</span>
+                <div className={`medicine-visual ${medicine.tone}`}>
+                  <span className="product-symbol" aria-hidden="true">{medicine.icon}</span>
+                  <span className="demo-tag">{t.demoTag}</span>
                 </div>
-
                 <div className="medicine-info">
                   <span className="medicine-category">
-                    {medicine.category}
+                    {t.categories[medicine.category]}
                   </span>
                   <h3>{medicine.name}</h3>
-
                   <div className="price-row">
                     <strong>{medicine.price}</strong>
-                    <span>Illustrative price</span>
+                    <span>{t.illustrative}</span>
                   </div>
-
-                  <button
-                    className="card-button"
-                    onClick={() => setSelectedMedicine(medicine)}
-                  >
-                    View details ↗
+                  <button className="card-button" onClick={() => setSelectedMedicine(medicine)}>
+                    {t.details}
                   </button>
                 </div>
               </article>
             ))}
 
             {filteredMedicines.length === 0 && (
-              <p className="empty-state">
-                No matching demo listings. Try another medicine name.
-              </p>
+              <p className="empty-state">{t.noMedicine}</p>
             )}
           </div>
 
-          <p className="disclaimer">
-            Demo catalogue only. Prices, product descriptions and listings are
-            illustrative. This is not a prescription or a medical diagnosis.
-          </p>
+          <p className="disclaimer">{t.catalogueDisclaimer}</p>
         </section>
 
         <section className="pharmacy-section" id="pharmacy-finder">
           <div className="pharmacy-heading">
-            <span className="eyebrow">LOCAL DISCOVERY · DEMO</span>
-            <h2>Find a pharmacy</h2>
-            <p>
-              Enter a city or PIN code to explore example pharmacy cards.
-              These are not verified shops.
-            </p>
+            <span className="eyebrow">{t.local}</span>
+            <h2>{t.pharmacyTitle}</h2>
+            <p>{t.pharmacyText}</p>
           </div>
 
           <div className="pharmacy-search">
-            <span>⌕</span>
+            <span aria-hidden="true">⌕</span>
             <input
               value={locationSearch}
               onChange={(event) => setLocationSearch(event.target.value)}
-              placeholder="Try Lucknow or 226001"
-              aria-label="Search pharmacies by city or PIN code"
+              placeholder={t.pharmacyPlaceholder}
+              aria-label={t.pharmacyPlaceholder}
             />
             {locationSearch && (
-              <button
-                className="clear-search"
-                onClick={() => setLocationSearch("")}
-              >
-                Clear
+              <button className="clear-search" onClick={() => setLocationSearch("")}>
+                {t.clear}
               </button>
             )}
           </div>
 
           <div className="pharmacy-results-heading">
-            <h3>Example pharmacy listings</h3>
-            <span>{filteredPharmacies.length} results</span>
+            <h3>{t.listings}</h3>
+            <span>{filteredPharmacies.length} {t.results}</span>
           </div>
 
           <div className="pharmacy-grid">
             {filteredPharmacies.map((pharmacy) => (
               <article className="pharmacy-card" key={pharmacy.id}>
-                <div className="pharmacy-icon">＋</div>
-                <span className="demo-tag">DEMO</span>
+                <div className="pharmacy-icon" aria-hidden="true">＋</div>
+                <span className="demo-tag">{t.demoTag}</span>
                 <h3>{pharmacy.name}</h3>
-                <p className="pharmacy-city">
-                  {pharmacy.city} · {pharmacy.pincode}
-                </p>
+                <p className="pharmacy-city">{pharmacy.city} · {pharmacy.pincode}</p>
                 <p className="pharmacy-address">{pharmacy.address}</p>
-                <span className="pharmacy-status">{pharmacy.status}</span>
-                <button
-                  className="card-button"
-                  onClick={() => setSelectedPharmacy(pharmacy)}
-                >
-                  View pharmacy details ↗
+                <span className="pharmacy-status">{t.demoTag} listing</span>
+                <button className="card-button" onClick={() => setSelectedPharmacy(pharmacy)}>
+                  {t.pharmacyDetails}
                 </button>
               </article>
             ))}
 
             {filteredPharmacies.length === 0 && (
-              <p className="empty-state">
-                No sample listing matches that search. Try Lucknow,
-                Farrukhabad, Kanpur or a sample PIN code.
-              </p>
+              <p className="empty-state">{t.noPharmacy}</p>
             )}
           </div>
 
-          <p className="disclaimer">
-            Pharmacy names, addresses and PIN-code associations are sample
-            interface data only. No live stock, location or licence has been
-            verified. Do not rely on this demo to locate or purchase medicine.
-          </p>
+          <p className="disclaimer">{t.pharmacyDisclaimer}</p>
         </section>
 
         <section className="how-section" id="how">
-          <span className="eyebrow">SIMPLE BY DESIGN</span>
-          <h2>Your search, made simpler.</h2>
+          <span className="eyebrow">{t.howEyebrow}</span>
+          <h2>{t.howTitle}</h2>
           <div className="steps">
-            <div>
-              <span>01</span>
-              <h3>Search</h3>
-              <p>Enter the name of a medicine you are looking for.</p>
-            </div>
-            <div>
-              <span>02</span>
-              <h3>Explore</h3>
-              <p>Open sample medicine and pharmacy details.</p>
-            </div>
-            <div>
-              <span>03</span>
-              <h3>Confirm</h3>
-              <p>
-                In a future live service, confirm stock and prescription
-                requirements directly with a licensed pharmacy.
-              </p>
-            </div>
+            <div><span>01</span><h3>{t.step1}</h3><p>{t.step1Text}</p></div>
+            <div><span>02</span><h3>{t.step2}</h3><p>{t.step2Text}</p></div>
+            <div><span>03</span><h3>{t.step3}</h3><p>{t.step3Text}</p></div>
           </div>
         </section>
       </main>
 
       <footer>
-        <a className="brand footer-brand" href="#">
+        <a className="brand footer-brand" href="#top">
           <span className="brand-icon">M+</span>
-          <span>
+          <span className="brand-word">
             Med<span className="brand-accent">Khoj</span>
             <small>MEDICINE DISCOVERY</small>
           </span>
         </a>
-        <span>Interactive demo · Sample data only</span>
+        <span>{t.footer}</span>
       </footer>
 
       {selectedMedicine && (
-        <div
-          className="modal-backdrop"
-          onClick={() => setSelectedMedicine(null)}
-        >
+        <div className="modal-backdrop" onClick={() => setSelectedMedicine(null)}>
           <section
             className="detail-modal"
             role="dialog"
@@ -381,57 +473,29 @@ function App() {
             aria-labelledby="medicine-detail-title"
             onClick={(event) => event.stopPropagation()}
           >
-            <button
-              className="modal-close"
-              aria-label="Close medicine details"
-              onClick={() => setSelectedMedicine(null)}
-            >
-              ×
-            </button>
-
-            <span className="eyebrow">MEDICINE DETAILS · DEMO</span>
-            <div className="detail-symbol">✚</div>
-            <span className="medicine-category">
-              {selectedMedicine.category}
-            </span>
+            <button className="modal-close" aria-label={t.close} onClick={() => setSelectedMedicine(null)}>×</button>
+            <span className="eyebrow">{t.medDetail}</span>
+            <div className={`detail-symbol ${selectedMedicine.tone}`} aria-hidden="true">
+              {selectedMedicine.icon}
+            </div>
+            <span className="medicine-category">{t.categories[selectedMedicine.category]}</span>
             <h2 id="medicine-detail-title">{selectedMedicine.name}</h2>
-            <div className="detail-price">
-              {selectedMedicine.price}
-              <small>Illustrative price only</small>
-            </div>
+            <div className="detail-price">{selectedMedicine.price}<small>{t.illustrativeOnly}</small></div>
             <p>{selectedMedicine.description}</p>
-
             <div className="detail-info-row">
-              <b>Information category</b>
-              <span>{selectedMedicine.use}</span>
+              <b>{t.infoCategory}</b><span>{selectedMedicine.use}</span>
             </div>
-
             <div className="medical-notice">
-              <b>Important safety note</b>
-              <p>{selectedMedicine.note}</p>
+              <b>{t.safety}</b><p>{selectedMedicine.note}</p>
             </div>
-
-            <p className="disclaimer">
-              This sample does not verify the product, price, stock or
-              suitability for an individual. Consult a qualified healthcare
-              professional.
-            </p>
-
-            <button
-              className="primary-modal-button"
-              onClick={() => setSelectedMedicine(null)}
-            >
-              Close details
-            </button>
+            <p className="disclaimer">{t.catalogueDisclaimer}</p>
+            <button className="primary-modal-button" onClick={() => setSelectedMedicine(null)}>{t.close}</button>
           </section>
         </div>
       )}
 
       {selectedPharmacy && (
-        <div
-          className="modal-backdrop"
-          onClick={() => setSelectedPharmacy(null)}
-        >
+        <div className="modal-backdrop" onClick={() => setSelectedPharmacy(null)}>
           <section
             className="detail-modal"
             role="dialog"
@@ -439,45 +503,17 @@ function App() {
             aria-labelledby="pharmacy-detail-title"
             onClick={(event) => event.stopPropagation()}
           >
-            <button
-              className="modal-close"
-              aria-label="Close pharmacy details"
-              onClick={() => setSelectedPharmacy(null)}
-            >
-              ×
-            </button>
-
-            <span className="eyebrow">PHARMACY DETAILS · DEMO</span>
-            <div className="detail-symbol">＋</div>
+            <button className="modal-close" aria-label={t.close} onClick={() => setSelectedPharmacy(null)}>×</button>
+            <span className="eyebrow">{t.pharmacyDetail}</span>
+            <div className="detail-symbol mint" aria-hidden="true">＋</div>
             <h2 id="pharmacy-detail-title">{selectedPharmacy.name}</h2>
-
-            <div className="detail-info-row">
-              <b>Sample city</b>
-              <span>{selectedPharmacy.city}</span>
-            </div>
-            <div className="detail-info-row">
-              <b>Sample PIN code</b>
-              <span>{selectedPharmacy.pincode}</span>
-            </div>
-            <div className="detail-info-row">
-              <b>Address</b>
-              <span>{selectedPharmacy.address}</span>
-            </div>
-
+            <div className="detail-info-row"><b>{t.sampleCity}</b><span>{selectedPharmacy.city}</span></div>
+            <div className="detail-info-row"><b>{t.samplePin}</b><span>{selectedPharmacy.pincode}</span></div>
+            <div className="detail-info-row"><b>{t.address}</b><span>{selectedPharmacy.address}</span></div>
             <div className="medical-notice">
-              <b>Demo only — not a real pharmacy</b>
-              <p>
-                No real store, licence, stock, price, contact number or order
-                service is connected to this listing.
-              </p>
+              <b>{t.fakePharmacy}</b><p>{t.fakePharmacyText}</p>
             </div>
-
-            <button
-              className="primary-modal-button"
-              onClick={() => setSelectedPharmacy(null)}
-            >
-              Close details
-            </button>
+            <button className="primary-modal-button" onClick={() => setSelectedPharmacy(null)}>{t.close}</button>
           </section>
         </div>
       )}
