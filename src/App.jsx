@@ -6,44 +6,65 @@ const medicines = [
   {
     id: 1,
     name: "Paracetamol 500 mg",
+    nameHi: "पैरासिटामोल 500 मि.ग्रा.",
     category: "pain",
     price: "₹20",
-    description: "A sample catalogue entry for a medicine commonly used for pain and fever.",
+    aliases:
+      "paracetamol paracetemol acetaminophen पैरासिटामोल पेरासिटामोल पारासिटामोल परासिटामोल बुखार दर्द ताप",
+    description: "A sample catalogue entry for a medicine commonly associated with pain and fever.",
+    descriptionHi: "दर्द और बुखार से संबंधित जानकारी के लिए एक उदाहरण वाली दवा की लिस्टिंग।",
     use: "Pain and fever information",
+    useHi: "दर्द और बुखार से संबंधित जानकारी",
     note: "Use only as directed by a qualified healthcare professional. Check the label and avoid duplicate paracetamol-containing products.",
+    noteHi: "केवल योग्य स्वास्थ्य विशेषज्ञ के निर्देशानुसार उपयोग करें। लेबल जाँचें और एक से अधिक पैरासिटामोल वाली दवाएँ साथ लेने से बचें।",
     icon: "✚",
     tone: "mint",
   },
   {
     id: 2,
     name: "Vitamin C Tablets",
+    nameHi: "विटामिन C टैबलेट",
     category: "vitamins",
     price: "₹85",
+    aliases: "vitamin c विटामिन सी विटामिन सप्लीमेंट supplement vitamins",
     description: "A sample catalogue entry for a vitamin supplement.",
+    descriptionHi: "विटामिन सप्लीमेंट की एक उदाहरण वाली लिस्टिंग।",
     use: "Vitamin supplement information",
+    useHi: "विटामिन सप्लीमेंट से संबंधित जानकारी",
     note: "Supplements are not a substitute for a balanced diet or professional medical advice.",
+    noteHi: "सप्लीमेंट संतुलित आहार या चिकित्सकीय सलाह का विकल्प नहीं हैं।",
     icon: "✿",
     tone: "peach",
   },
   {
     id: 3,
     name: "ORS Sachets",
+    nameHi: "ORS सैशे",
     category: "hydration",
     price: "₹22",
+    aliases: "ors ओआरएस ओ आर एस oral rehydration salts hydration हाइड्रेशन dehydration निर्जलीकरण पानी की कमी",
     description: "A sample catalogue entry for oral rehydration salts.",
+    descriptionHi: "ओरल रिहाइड्रेशन सॉल्ट (ORS) की एक उदाहरण वाली लिस्टिंग।",
     use: "Rehydration information",
+    useHi: "शरीर में पानी और लवण की कमी से संबंधित जानकारी",
     note: "Prepare exactly as instructed on the product pack. Seek medical care for severe dehydration or concerning symptoms.",
+    noteHi: "पैकेट पर दिए निर्देशों के अनुसार ही घोल तैयार करें। गंभीर निर्जलीकरण या चिंताजनक लक्षण होने पर चिकित्सकीय सहायता लें।",
     icon: "＋",
     tone: "blue",
   },
   {
     id: 4,
     name: "Cetirizine 10 mg",
+    nameHi: "सेटिरिज़िन 10 मि.ग्रा.",
     category: "allergy",
     price: "₹18",
+    aliases: "cetirizine सेटिरिज़िन सेटिरीज़िन allergy एलर्जी antihistamine छींक खुजली",
     description: "A sample catalogue entry for an antihistamine medicine.",
+    descriptionHi: "एंटीहिस्टामिन दवा की एक उदाहरण वाली लिस्टिंग।",
     use: "Allergy symptom information",
+    useHi: "एलर्जी के लक्षणों से संबंधित जानकारी",
     note: "May cause drowsiness. Check suitability, precautions and dosage with a qualified healthcare professional.",
+    noteHi: "इससे नींद आ सकती है। उपयुक्तता, सावधानियों और खुराक के लिए योग्य स्वास्थ्य विशेषज्ञ से सलाह लें।",
     icon: "❋",
     tone: "lilac",
   },
@@ -53,23 +74,32 @@ const pharmacies = [
   {
     id: 1,
     name: "Demo Pharmacy One",
+    nameHi: "डेमो फार्मेसी एक",
     city: "Lucknow",
+    cityHi: "लखनऊ",
     pincode: "226001",
     address: "Sample address — not a real store",
+    addressHi: "उदाहरण वाला पता — यह वास्तविक दुकान नहीं है",
   },
   {
     id: 2,
     name: "Demo Pharmacy Two",
+    nameHi: "डेमो फार्मेसी दो",
     city: "Farrukhabad",
+    cityHi: "फर्रुखाबाद",
     pincode: "209625",
     address: "Sample address — not a real store",
+    addressHi: "उदाहरण वाला पता — यह वास्तविक दुकान नहीं है",
   },
   {
     id: 3,
     name: "Demo Pharmacy Three",
+    nameHi: "डेमो फार्मेसी तीन",
     city: "Kanpur",
+    cityHi: "कानपुर",
     pincode: "208001",
     address: "Sample address — not a real store",
+    addressHi: "उदाहरण वाला पता — यह वास्तविक दुकान नहीं है",
   },
 ];
 
@@ -83,11 +113,11 @@ const copy = {
     heroLine1: "Find your medicine.",
     heroLine2: "With more confidence.",
     heroText: "Explore medicine information and discover how a local pharmacy finder could work. This is an interactive sample demo.",
-    searchPlaceholder: "Search medicine name...",
+    searchPlaceholder: "Search medicine name or use...",
     search: "Search",
     trust: "Interactive demo · No account required",
     benefit1: "Easy discovery",
-    benefit1Text: "Search by medicine name",
+    benefit1Text: "Search in Hindi or English",
     benefit2: "Pharmacy focused",
     benefit2Text: "Explore sample store listings",
     benefit3: "Clear information",
@@ -100,7 +130,7 @@ const copy = {
     illustrative: "Illustrative price",
     details: "View details ↗",
     noMedicine: "No matching demo listings. Try another medicine name.",
-    catalogueDisclaimer: "Demo catalogue only. Prices, product descriptions and listings are illustrative. This is not a prescription or a medical diagnosis.",
+    catalogueDisclaimer: "Demo catalogue only. Prices and listings are illustrative. This is not a prescription or a medical diagnosis.",
     local: "LOCAL DISCOVERY · DEMO",
     pharmacyTitle: "Find a pharmacy",
     pharmacyText: "Enter a city or PIN code to explore example pharmacy cards. These are not verified shops.",
@@ -109,7 +139,7 @@ const copy = {
     listings: "Example pharmacy listings",
     pharmacyDetails: "View pharmacy details ↗",
     noPharmacy: "No sample listing matches that search. Try Lucknow, Farrukhabad, Kanpur or a sample PIN code.",
-    pharmacyDisclaimer: "Pharmacy names, addresses and PIN-code associations are sample interface data only. No live stock, location or licence has been verified. Do not rely on this demo to locate or purchase medicine.",
+    pharmacyDisclaimer: "Pharmacy names, addresses and PIN-code associations are sample data only. No live stock, location or licence has been verified. Do not rely on this demo to locate or purchase medicine.",
     howEyebrow: "SIMPLE BY DESIGN",
     howTitle: "Your search, made simpler.",
     step1: "Search",
@@ -130,14 +160,14 @@ const copy = {
     address: "Address",
     fakePharmacy: "Demo only — not a real pharmacy",
     fakePharmacyText: "No real store, licence, stock, price, contact number or order service is connected to this listing.",
+    language: "हिन्दी",
+    languageLabel: "Language",
     categories: {
       pain: "Pain & Fever",
       vitamins: "Vitamins & Supplements",
       hydration: "Hydration & Wellness",
       allergy: "Allergy Care",
     },
-    language: "हिन्दी",
-    languageLabel: "Language",
   },
   hi: {
     navMedicines: "दवाइयाँ",
@@ -148,11 +178,11 @@ const copy = {
     heroLine1: "अपनी दवा खोजें।",
     heroLine2: "और अधिक भरोसे के साथ।",
     heroText: "दवाइयों की जानकारी देखें और समझें कि स्थानीय फार्मेसी खोजने की सुविधा कैसे काम कर सकती है। यह एक इंटरैक्टिव डेमो है।",
-    searchPlaceholder: "दवा का नाम खोजें...",
+    searchPlaceholder: "दवा का नाम या संबंधित शब्द खोजें...",
     search: "खोजें",
     trust: "इंटरैक्टिव डेमो · अकाउंट की जरूरत नहीं",
     benefit1: "आसान खोज",
-    benefit1Text: "दवा के नाम से खोजें",
+    benefit1Text: "हिन्दी या English में खोजें",
     benefit2: "फार्मेसी की जानकारी",
     benefit2Text: "उदाहरण वाली दुकानें देखें",
     benefit3: "स्पष्ट जानकारी",
@@ -165,7 +195,7 @@ const copy = {
     illustrative: "केवल उदाहरण का मूल्य",
     details: "जानकारी देखें ↗",
     noMedicine: "इस नाम की कोई डेमो दवा नहीं मिली। दूसरा नाम खोजें।",
-    catalogueDisclaimer: "यह केवल डेमो कैटलॉग है। कीमतें, विवरण और लिस्टिंग उदाहरण के लिए हैं। यह प्रिस्क्रिप्शन या मेडिकल डायग्नोसिस नहीं है।",
+    catalogueDisclaimer: "यह केवल डेमो कैटलॉग है। कीमतें और लिस्टिंग उदाहरण के लिए हैं। यह प्रिस्क्रिप्शन या मेडिकल डायग्नोसिस नहीं है।",
     local: "स्थानीय खोज · डेमो",
     pharmacyTitle: "फार्मेसी खोजें",
     pharmacyText: "उदाहरण वाली फार्मेसी देखने के लिए शहर या PIN कोड डालें। ये सत्यापित दुकानें नहीं हैं।",
@@ -188,23 +218,33 @@ const copy = {
     illustrativeOnly: "केवल उदाहरण की कीमत",
     infoCategory: "जानकारी की श्रेणी",
     safety: "जरूरी सुरक्षा सूचना",
-    close: "बंद करें",
+    close: "विवरण बंद करें",
     pharmacyDetail: "फार्मेसी विवरण · डेमो",
     sampleCity: "उदाहरण वाला शहर",
     samplePin: "उदाहरण PIN कोड",
     address: "पता",
     fakePharmacy: "केवल डेमो — असली फार्मेसी नहीं",
     fakePharmacyText: "इस लिस्टिंग में कोई वास्तविक दुकान, लाइसेंस, स्टॉक, कीमत, संपर्क नंबर या ऑर्डर सेवा जुड़ी नहीं है।",
+    language: "English",
+    languageLabel: "भाषा",
     categories: {
       pain: "दर्द और बुखार",
       vitamins: "विटामिन और सप्लीमेंट",
       hydration: "हाइड्रेशन और वेलनेस",
       allergy: "एलर्जी की देखभाल",
     },
-    language: "English",
-    languageLabel: "भाषा",
   },
 };
+
+function normalizeSearchText(value) {
+  return String(value ?? "")
+    .normalize("NFKC")
+    .toLocaleLowerCase()
+    .replace(/[\u200B-\u200D\uFEFF]/g, "")
+    .replace(/[़॒॑]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
 
 function App() {
   const [language, setLanguage] = useState("en");
@@ -216,23 +256,56 @@ function App() {
   const t = copy[language];
 
   const filteredMedicines = useMemo(() => {
-    const term = search.trim().toLowerCase();
+    const term = normalizeSearchText(search);
+    if (!term) return medicines;
+
     return medicines.filter((medicine) => {
-      const translatedCategory = t.categories[medicine.category].toLowerCase();
-      return `${medicine.name} ${medicine.category} ${translatedCategory}`
-        .toLowerCase()
-        .includes(term);
+      const searchableText = normalizeSearchText([
+        medicine.name,
+        medicine.nameHi,
+        medicine.category,
+        t.categories[medicine.category],
+        medicine.aliases,
+        medicine.description,
+        medicine.descriptionHi,
+        medicine.use,
+        medicine.useHi,
+        medicine.note,
+        medicine.noteHi,
+      ].join(" "));
+
+      return searchableText.includes(term);
     });
   }, [search, t]);
 
   const filteredPharmacies = useMemo(() => {
-    const term = locationSearch.trim().toLowerCase();
+    const term = normalizeSearchText(locationSearch);
+    if (!term) return pharmacies;
+
     return pharmacies.filter((pharmacy) =>
-      `${pharmacy.city} ${pharmacy.pincode} ${pharmacy.name}`
-        .toLowerCase()
-        .includes(term)
+      normalizeSearchText([
+        pharmacy.name,
+        pharmacy.nameHi,
+        pharmacy.city,
+        pharmacy.cityHi,
+        pharmacy.pincode,
+        pharmacy.address,
+        pharmacy.addressHi,
+      ].join(" ")).includes(term)
     );
   }, [locationSearch]);
+
+  const medicineDisplayName = (medicine) =>
+    language === "hi" ? medicine.nameHi : medicine.name;
+
+  const pharmacyDisplayName = (pharmacy) =>
+    language === "hi" ? pharmacy.nameHi : pharmacy.name;
+
+  const pharmacyDisplayCity = (pharmacy) =>
+    language === "hi" ? pharmacy.cityHi : pharmacy.city;
+
+  const pharmacyDisplayAddress = (pharmacy) =>
+    language === "hi" ? pharmacy.addressHi : pharmacy.address;
 
   function scrollTo(id) {
     document.getElementById(id)?.scrollIntoView({
@@ -261,7 +334,7 @@ function App() {
         <div className="nav-actions">
           <button
             className="language-button"
-            onClick={() => setLanguage(language === "en" ? "hi" : "en")}
+            onClick={() => setLanguage((current) => current === "en" ? "hi" : "en")}
             aria-label={`${t.languageLabel}: ${t.language}`}
             title={t.languageLabel}
           >
@@ -280,13 +353,11 @@ function App() {
               <span className="live-dot" />
               {t.eyebrow}
             </span>
-
             <h1>
               {t.heroLine1}
               <br />
               <span>{t.heroLine2}</span>
             </h1>
-
             <p>{t.heroText}</p>
 
             <form
@@ -308,8 +379,7 @@ function App() {
             </form>
 
             <div className="trust-line">
-              <span aria-hidden="true">✓</span>
-              {t.trust}
+              <span aria-hidden="true">✓</span> {t.trust}
             </div>
           </div>
 
@@ -317,7 +387,7 @@ function App() {
             <div className="art-orbit orbit-one" />
             <div className="art-orbit orbit-two" />
             <div className="medicine-box">
-              <div className="box-top">HEALTH & WELLNESS</div>
+              <div className="box-top">HEALTH &amp; WELLNESS</div>
               <div className="box-cross">+</div>
               <div className="box-name">MED<span>KHOJ</span></div>
               <div className="box-caption">YOUR HEALTH JOURNEY</div>
@@ -356,9 +426,7 @@ function App() {
               <h2>{t.catalogTitle}</h2>
               <p>{t.catalogText}</p>
             </div>
-            <span className="result-count">
-              {filteredMedicines.length} {t.results}
-            </span>
+            <span className="result-count">{filteredMedicines.length} {t.results}</span>
           </div>
 
           <div className="medicine-grid">
@@ -369,10 +437,12 @@ function App() {
                   <span className="demo-tag">{t.demoTag}</span>
                 </div>
                 <div className="medicine-info">
-                  <span className="medicine-category">
-                    {t.categories[medicine.category]}
-                  </span>
-                  <h3>{medicine.name}</h3>
+                  <span className="medicine-category">{t.categories[medicine.category]}</span>
+                  <h3>
+                    {language === "hi"
+                      ? (medicine.nameHi || "हिन्दी नाम उपलब्ध नहीं")
+                      : medicine.name}
+                  </h3>
                   <div className="price-row">
                     <strong>{medicine.price}</strong>
                     <span>{t.illustrative}</span>
@@ -383,10 +453,7 @@ function App() {
                 </div>
               </article>
             ))}
-
-            {filteredMedicines.length === 0 && (
-              <p className="empty-state">{t.noMedicine}</p>
-            )}
+            {filteredMedicines.length === 0 && <p className="empty-state">{t.noMedicine}</p>}
           </div>
 
           <p className="disclaimer">{t.catalogueDisclaimer}</p>
@@ -408,7 +475,7 @@ function App() {
               aria-label={t.pharmacyPlaceholder}
             />
             {locationSearch && (
-              <button className="clear-search" onClick={() => setLocationSearch("")}>
+              <button className="clear-search" onClick={() => setLocationSearch("")} type="button">
                 {t.clear}
               </button>
             )}
@@ -424,19 +491,16 @@ function App() {
               <article className="pharmacy-card" key={pharmacy.id}>
                 <div className="pharmacy-icon" aria-hidden="true">＋</div>
                 <span className="demo-tag">{t.demoTag}</span>
-                <h3>{pharmacy.name}</h3>
-                <p className="pharmacy-city">{pharmacy.city} · {pharmacy.pincode}</p>
-                <p className="pharmacy-address">{pharmacy.address}</p>
+                <h3>{pharmacyDisplayName(pharmacy)}</h3>
+                <p className="pharmacy-city">{pharmacyDisplayCity(pharmacy)} · {pharmacy.pincode}</p>
+                <p className="pharmacy-address">{pharmacyDisplayAddress(pharmacy)}</p>
                 <span className="pharmacy-status">{t.demoTag} listing</span>
                 <button className="card-button" onClick={() => setSelectedPharmacy(pharmacy)}>
                   {t.pharmacyDetails}
                 </button>
               </article>
             ))}
-
-            {filteredPharmacies.length === 0 && (
-              <p className="empty-state">{t.noPharmacy}</p>
-            )}
+            {filteredPharmacies.length === 0 && <p className="empty-state">{t.noPharmacy}</p>}
           </div>
 
           <p className="disclaimer">{t.pharmacyDisclaimer}</p>
@@ -456,10 +520,7 @@ function App() {
       <footer>
         <a className="brand footer-brand" href="#top">
           <span className="brand-icon">M+</span>
-          <span className="brand-word">
-            Med<span className="brand-accent">Khoj</span>
-            <small>MEDICINE DISCOVERY</small>
-          </span>
+          <span className="brand-word">Med<span className="brand-accent">Khoj</span><small>MEDICINE DISCOVERY</small></span>
         </a>
         <span>{t.footer}</span>
       </footer>
@@ -475,18 +536,22 @@ function App() {
           >
             <button className="modal-close" aria-label={t.close} onClick={() => setSelectedMedicine(null)}>×</button>
             <span className="eyebrow">{t.medDetail}</span>
-            <div className={`detail-symbol ${selectedMedicine.tone}`} aria-hidden="true">
-              {selectedMedicine.icon}
-            </div>
+            <div className={`detail-symbol ${selectedMedicine.tone}`} aria-hidden="true">{selectedMedicine.icon}</div>
             <span className="medicine-category">{t.categories[selectedMedicine.category]}</span>
-            <h2 id="medicine-detail-title">{selectedMedicine.name}</h2>
+            <h2 id="medicine-detail-title">
+              {language === "hi"
+                ? (selectedMedicine.nameHi || "हिन्दी नाम उपलब्ध नहीं")
+                : selectedMedicine.name}
+            </h2>
             <div className="detail-price">{selectedMedicine.price}<small>{t.illustrativeOnly}</small></div>
-            <p>{selectedMedicine.description}</p>
+            <p>{language === "hi" ? selectedMedicine.descriptionHi : selectedMedicine.description}</p>
             <div className="detail-info-row">
-              <b>{t.infoCategory}</b><span>{selectedMedicine.use}</span>
+              <b>{t.infoCategory}</b>
+              <span>{language === "hi" ? selectedMedicine.useHi : selectedMedicine.use}</span>
             </div>
             <div className="medical-notice">
-              <b>{t.safety}</b><p>{selectedMedicine.note}</p>
+              <b>{t.safety}</b>
+              <p>{language === "hi" ? selectedMedicine.noteHi : selectedMedicine.note}</p>
             </div>
             <p className="disclaimer">{t.catalogueDisclaimer}</p>
             <button className="primary-modal-button" onClick={() => setSelectedMedicine(null)}>{t.close}</button>
@@ -506,13 +571,11 @@ function App() {
             <button className="modal-close" aria-label={t.close} onClick={() => setSelectedPharmacy(null)}>×</button>
             <span className="eyebrow">{t.pharmacyDetail}</span>
             <div className="detail-symbol mint" aria-hidden="true">＋</div>
-            <h2 id="pharmacy-detail-title">{selectedPharmacy.name}</h2>
-            <div className="detail-info-row"><b>{t.sampleCity}</b><span>{selectedPharmacy.city}</span></div>
+            <h2 id="pharmacy-detail-title">{pharmacyDisplayName(selectedPharmacy)}</h2>
+            <div className="detail-info-row"><b>{t.sampleCity}</b><span>{pharmacyDisplayCity(selectedPharmacy)}</span></div>
             <div className="detail-info-row"><b>{t.samplePin}</b><span>{selectedPharmacy.pincode}</span></div>
-            <div className="detail-info-row"><b>{t.address}</b><span>{selectedPharmacy.address}</span></div>
-            <div className="medical-notice">
-              <b>{t.fakePharmacy}</b><p>{t.fakePharmacyText}</p>
-            </div>
+            <div className="detail-info-row"><b>{t.address}</b><span>{pharmacyDisplayAddress(selectedPharmacy)}</span></div>
+            <div className="medical-notice"><b>{t.fakePharmacy}</b><p>{t.fakePharmacyText}</p></div>
             <button className="primary-modal-button" onClick={() => setSelectedPharmacy(null)}>{t.close}</button>
           </section>
         </div>
